@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit Semster</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+  <style>
+    body {
+      background-color: #e7e7e7;
+    }    
+    .navbar-expand-lg .navbar-nav .nav-link
+    {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">  
+    <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Students</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/doctors">Doctors</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="/semsters">Semesters</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/courses">Courses</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/Team">Team</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="row d-flex flex-column my-4">
+      <div class="card">
+        <div class="card-body text-center py-4">
+            {% if ret == "True" %}
+                <div class="alert alert-success">Semster info has been updated</div>
+            {% elif ret == "False" %}
+                <div class="alert alert-danger">Error!</div>
+            {% endif %}
+            <h2>Edit Semster</h2>
+            <form action="/edit_semster" METHOD="POST">
+                <input name="id" type="hidden" class="form-control" id="semster_Name" placeholder="semster Name" value="{{semster[0]}}">
+                <div class="mb-3 text-left font-weight-bold">
+                    <label for="semster_Name" class="form-label text-left">Semster Name:</label>
+                    <input name="semster_name" type="text" class="form-control" id="semster_Name" placeholder="semster Name" value="{{semster[1]}}">
+                </div>
+                <button type="submit" class="btn btn-success px-5">Save</button>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

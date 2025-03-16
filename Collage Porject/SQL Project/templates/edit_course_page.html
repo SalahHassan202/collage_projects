@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit Course</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+  <style>
+    body {
+      background-color: #e7e7e7;
+    }   
+    .navbar-expand-lg .navbar-nav .nav-link
+    {
+      font-weight: bold;
+    } 
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">  
+    <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Students</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/doctors">Doctors</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/semsters">Semesters</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="/courses">Courses</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/Team">Team</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="row d-flex flex-column my-4">
+      <div class="card">
+        <div class="card-body text-center py-4">
+            {% if ret == "True" %}
+                <div class="alert alert-success">Doctor info has been updated</div>
+            {% elif ret == "False" %}
+                <div class="alert alert-danger">Error!</div>
+            {% endif %}
+            <h2>Edit Course</h2>
+            <form action="/edit_course" METHOD="POST">
+                <input name="id" type="hidden" class="form-control" id="course_name" placeholder="Course Name" value="{{course[0]}}">
+                <div class="mb-3 text-left font-weight-bold">
+                    <label for="course_name" class="form-label text-left">Course Name:</label>
+                    <input name="course_name" type="text" class="form-control" id="course_name" placeholder="Course Name" value="{{course[1]}}">
+                  </div>
+                <div class="mb-3 text-left font-weight-bold">
+                    <label for="semster" class="form-label text-left">Semster:</label>
+                    <select name="semster" class="form-control" id="semster">
+                    {% for semster in semsters %}
+                        {% set selected = 'SELECTED' if semster[0] == course[2] else '' %}
+                        <option value="{{semster[0]}}" {{selected}}>{{semster[1]}}</option>
+                    {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-3 text-left font-weight-bold">
+                    <label for="doctor" class="form-label text-left">Doctor:</label>
+                    <select name="doctor" class="form-control" id="doctor">
+                        <option value="NULL">--No Doctors--</option>
+                        {% for doctor in doctors %}
+                        {% set selected = 'SELECTED' if doctor[0] == course[3] else '' %}
+                        <option value="{{doctor[0]}}" {{selected}}>{{doctor[1]}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-success px-5">Save</button>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
